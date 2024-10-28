@@ -23,3 +23,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;  // Will respond asynchronously.
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded and parsed");
+  const button = document.createElement("button");
+  button.textContent = "Ask ChatGPT";
+  button.style.position = "fixed";
+  button.style.bottom = "10px";
+  button.style.right = "10px";
+  button.style.zIndex = "1000";
+  document.body.appendChild(button);
+  console.log("Button added to the page");
+
+  button.addEventListener("click", () => {
+    const message = prompt("Enter your message for ChatGPT:");
+    if (message) {
+      console.log("Sending message to background script:", message);
+      chrome.runtime.sendMessage({ action: "callChatGPT", message: message }, response => {
+        alert("ChatGPT says: " + response.reply);
+      });
+    }
+  });
+});

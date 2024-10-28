@@ -11,5 +11,6 @@
       "js": ["content.js"]
     }
   ],
-  "permissions": ["activeTab", "http://localhost:5000/"]
+  "permissions": ["activeTab"],
+  "host_permissions": ["http://localhost:5000/"]
 }
